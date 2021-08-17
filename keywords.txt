@@ -50,3 +50,4 @@ printLED	KEYWORD2
 Event	KEYWORD1
 
 # member functions
+printSerial	KEYWORD2
