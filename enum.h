@@ -1,7 +1,7 @@
 #ifndef ENUM_H
 #define ENUM_H
 
-enum Piece{
+enum PieceType{
     pawn    = 'P',
     rook    = 'R',
     knight  = 'N',

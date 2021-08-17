@@ -2,15 +2,16 @@
 #define SQUARE_H
 
 #include "enum.h"
+#include "piece.h"
 
 class Square{
 public:
     Square();
-    Square(Piece piece, Player color, bool hasPiece = false);
+    Square(PieceType type, Player color);
+    Square(const Piece& p);
 
     bool hasPiece;
     Piece piece;
-    Player pieceColor;
 };
 
 #endif
