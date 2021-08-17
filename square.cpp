@@ -1,7 +1,8 @@
 #include "square.h"
 
-Square::Square(){
-    hasPiece = false;
+Square::Square()
+: hasPiece(false) {
+
     piece.type = empty;
     piece.color = none;
 }

@@ -1,13 +1,11 @@
 #include "event.h"
 #include "utility.h"
 
-Event::Event(Player player, Action action, PieceType type, Player color, int f, int r){
-    player = player;
-    action = action;
+Event::Event(Player player, Action action, PieceType type, Player color, int f, int r)
+    : player(player), action(action), file(f), rank(r) {
+        
     piece.type = type;
     piece.color = color;
-    file = f;
-    rank = r;
 
     isPieceAlly = (player == piece.color);
 }
