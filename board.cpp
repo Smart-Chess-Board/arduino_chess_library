@@ -2,12 +2,12 @@
 
 Board::Board(){
     for (int file = 1; file <= 8; file++){
-        // set colors
+        // set piece colors
         for (int rank = 1; rank <= 2; rank++){
-            board[file][rank].color = white;
+            board[file][rank].pieceColor = white;
         }
         for (int rank = 7; rank <= 8; rank++){
-            board[file][rank].color = black;
+            board[file][rank].pieceColor = black;
         }
         // set pawns
         board[file][2].piece = pawn;

@@ -3,12 +3,12 @@
 Square::Square(){
     hasPiece = false;
     piece = empty;
-    color = none;
+    pieceColor = none;
 }
 
-Square::Square(pieceType piece, player color, bool hasPiece = false){
+Square::Square(Piece piece, Player color, bool hasPiece = false){
     piece = piece;
-    color = color;
+    pieceColor = color;
     hasPiece = hasPiece;
 }
 

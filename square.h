@@ -6,11 +6,11 @@
 class Square{
 public:
     Square();
-    Square(pieceType piece, player color, bool hasPiece = false);
+    Square(Piece piece, Player color, bool hasPiece = false);
 
     bool hasPiece;
-    pieceType piece;
-    player color;
+    Piece piece;
+    Player pieceColor;
 };
 
 #endif

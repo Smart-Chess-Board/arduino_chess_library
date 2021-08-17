@@ -1,7 +1,7 @@
 #ifndef ENUM_H
 #define ENUM_H
 
-enum pieceType{
+enum Piece{
     pawn    = 'P',
     rook    = 'R',
     knight  = 'N',
@@ -11,13 +11,13 @@ enum pieceType{
     empty   = '.'
 };
 
-enum player{
+enum Player{
     white,
     black,
     none // used for empty squares / reset FSM
 };
 
-enum files{
+enum File{
     A = 1,
     B = 2,
     C = 3,
@@ -27,5 +27,7 @@ enum files{
     G = 7,
     H = 8
 };
+
+enum Action{lift, place};
 
 #endif
