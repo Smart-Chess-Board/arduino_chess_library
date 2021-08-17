@@ -2,11 +2,11 @@
 
 // coordinate conversions
 char intToFileUpper(int file){
-    return "A"-1 + file;
+    return 'A'-1 + file;
 }
 
 char intToFileLower(int file){
-    return "a"-1 + file;
+    return 'a'-1 + file;
 }
 
 String getCoordUpper(int file, int rank){
@@ -23,7 +23,7 @@ String pieceName(PieceType type){
     else if (type == rook) return "rook";
     else if (type == knight) return "knight";
     else if (type == bishop) return "bishop";
-    else if (type == queen) return "queen";
+    else if (type == queen) return "queen"; 
     else if (type == king) return "king";
     else return "<none>";
 }
