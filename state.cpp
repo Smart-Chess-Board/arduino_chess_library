@@ -113,7 +113,7 @@ bool _noChange(Event* curr){
 
 bool _pieceReplaced(Event* curr, Event* prev){
     if (curr->file != prev->file) return false;
-    else if (curr->rank != curr->rank) return false;
+    else if (curr->rank != prev->rank) return false;
     else if (curr->piece != prev->piece) return false;
     else if (curr->action == place && prev->action == lift) return true;
     else return false;
