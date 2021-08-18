@@ -4,10 +4,13 @@
 #include "Arduino.h"
 #include "square.h"
 #include "enum.h"
+#include "event.h"
 
 class Board{
 public:
     Board();
+
+    // print statements
     void printSerial();
     void printLED();
 
