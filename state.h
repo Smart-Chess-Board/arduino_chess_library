@@ -15,7 +15,8 @@ enum State{
     PROMO1,     // promotions
     PROMO2,
     PROMO3,
-    RED,        // end state
+    RED1,        // end state
+    RED2,
     NONE,       // empty state used for reset
 };
 
@@ -33,7 +34,8 @@ State _nextStateFromCastle2(Event* curr, Event* prev);
 State _nextStateFromPromo1(Event* curr, Event* prev);
 State _nextStateFromPromo2(Event* curr, Event* prev);
 State _nextStateFromPromo3(Event* curr, Event* prev);
-State _nextStateFromRed(Event* curr, Event* prev);  // this function shouldn't ever be reached, just outputs an error message (may change)
+State _nextStateFromRed1(Event* curr, Event* prev);
+State _nextStateFromRed2(Event* curr, Event* prev);
 
 // helper functions
 bool _noChange(Event* curr);

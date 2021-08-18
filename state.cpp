@@ -13,7 +13,8 @@ State nextState(State state, Event* curr, Event* prev){
         case PROMO1:    return _nextStateFromPromo1(curr, prev);
         case PROMO2:    return _nextStateFromPromo2(curr, prev);
         case PROMO3:    return _nextStateFromPromo3(curr, prev);
-        case RED:       return _nextStateFromRed(curr, prev);
+        case RED1:      return _nextStateFromRed1(curr, prev);
+        case RED2:      return _nextStateFromRed2(curr, prev);
         case NONE:      return NONE;
         default:        return NONE;
     }
@@ -32,7 +33,7 @@ State _nextStateFromMove(Event* curr, Event* prev){
     if (_noChange(curr)) return MOVE;
     else if (_pieceReplaced(curr, prev)) return GREEN;
     else if (_isPromotion(curr)) return PROMO1;
-    else if (curr->action == place && curr->isPieceAlly == true) return RED;
+    else if (curr->action == place && curr->isPieceAlly == true) return RED1;
     else return MOVE;
 }
 
@@ -47,7 +48,7 @@ State _nextStateFromCapture2(Event* curr, Event* prev){
     if (_noChange(curr)) return CAPTURE2;
     else if (_pieceReplaced(curr, prev)) return CAPTURE1;
     else if (_isPromotion(curr)) return PROMO1;
-    else if (curr->action == place && curr->isPieceAlly == true) return RED;
+    else if (curr->action == place && curr->isPieceAlly == true) return RED1;
     else return CAPTURE2;
 }
 
@@ -56,7 +57,7 @@ State _nextStateFromKing(Event* curr, Event* prev){
     else if (_pieceReplaced(curr, prev)) return GREEN;
     else if (curr->action == place && curr->isPieceAlly == true && curr->piece.type == king){
         if (abs(curr->file - prev->file) == 2) return CASTLE1;
-        else return RED;
+        else return RED1;
     }
     else return KING;
 }
@@ -70,7 +71,7 @@ State _nextStateFromCastle1(Event* curr, Event* prev){
 State _nextStateFromCastle2(Event* curr, Event* prev){
     if (_noChange(curr)) return CASTLE2;
     else if (_pieceReplaced(curr, prev)) return CASTLE1;
-    else if (curr->action == place && curr->isPieceAlly == true && curr->piece.type == rook) return RED;
+    else if (curr->action == place && curr->isPieceAlly == true && curr->piece.type == rook) return RED1;
     else return CASTLE2;
 }
 
@@ -89,15 +90,20 @@ State _nextStateFromPromo2(Event* curr, Event* prev){
 }
 State _nextStateFromPromo3(Event* curr, Event* prev){
     if (_noChange(curr)) return PROMO3;
-    else if (curr->action == place && curr->file == prev->file && curr->rank == prev->rank) return RED;
+    else if (curr->action == place && curr->file == prev->file && curr->rank == prev->rank) return RED1;
     else return PROMO3;
 }
 
-// this function shouldn't ever be reached, just outputs an error message
-State _nextStateFromRed(Event* curr, Event* prev){
-    if (_noChange(curr)) return RED;
+State _nextStateFromRed1(Event* curr, Event* prev){
+    if (_noChange(curr)) return RED1;
+    else if (curr->player != prev->player) return RED2;
+    else return RED1;
+}
+
+State _nextStateFromRed2(Event* curr, Event* prev){
+    if (_noChange(curr)) return RED2;
     else if (curr->player != prev->player) return GREEN;
-    else return RED;
+    else return RED2;
 }
 
 // helper functions
