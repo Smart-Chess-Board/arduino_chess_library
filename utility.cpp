@@ -17,6 +17,15 @@ String getCoordLower(int file, int rank){
     return intToFileLower(file) + String(rank);
 }
 
+int fileToInt(char file){
+    if ('A' <= file && file <= 'H')
+        return file-'A'+1;
+    else if ('a' <= file && file <= 'h')
+        return file-'a'+1;
+    else
+        return -1;
+}
+
 // pieces
 String pieceName(PieceType type){
     if (type == pawn) return "pawn";
@@ -35,4 +44,10 @@ String pieceName(const Piece& piece){
         return "black " + pieceName(piece.type);
     else
         return "no piece";
+}
+
+// arduino
+String readStringFromSerial(){
+    while (Serial.available() == 0);
+    return Serial.readString();
 }

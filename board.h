@@ -5,6 +5,7 @@
 #include "square.h"
 #include "enum.h"
 #include "event.h"
+#include "utility.h"
 
 struct Coord{
     int file;
@@ -15,7 +16,7 @@ class Board{
 public:
     Board();
     Event pollEvent(const Event& prev, Player turn);
-    void updateBoard(const Event& event);
+    void update(const Event& event);
     void scanBoard();
     Coord detectChange();
 

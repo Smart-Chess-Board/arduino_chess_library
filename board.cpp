@@ -1,5 +1,7 @@
 #include "board.h"
 
+#define SW_TESTING
+
 Board::Board(){
     for (int file = 1; file <= 8; file++){
         // set piece colors
@@ -30,7 +32,13 @@ void Board::printSerial(){
     for (int rank = 8; rank >= 1; rank--){
         for (int file = 1; file <= 8; file++){
             char c = board[file][rank].piece.type;
-            Serial.print(c);
+            if (board[file][rank].piece.color == black){
+                c += 32;
+                Serial.print(c);
+            }
+            else{
+                Serial.print(c);
+            }
             Serial.print(" ");
         }
         Serial.println();
@@ -47,7 +55,42 @@ In PROMO1, need to wait for arduino to read a promotion type from the user
 In PROMO3, need to generate the state differently, since the piece being placed
 differs from the original piece that was lifted.
 */
+
 Event Board::pollEvent(const Event& prev, Player turn){
+#ifdef SW_TESTING
+    // format action, coord
+    // null event is just null
+    // ex. PD6
+    String input = readStringFromSerial();
+    if (input == "null"){
+        Event nullEvent;
+        return nullEvent;
+    }
+
+    Action action;
+    PieceType pieceType;
+    Player pieceColor;
+    int file, rank;
+
+    // parse input
+    file = fileToInt(input[1]);
+    String r = String(input[2]);
+    rank = r.toInt();
+    if (input[0] == 'L'){
+        action = lift;
+        pieceType = board[file][rank].piece.type;
+        pieceColor = board[file][rank].piece.color;
+    }
+    else if (input[0] == 'P'){
+        action = place;
+        pieceType = prev.piece.type;
+        pieceColor = prev.piece.color;
+    }
+
+    Event ret(turn, action, pieceType, pieceColor, file, rank);
+    return ret;
+
+#else
     Coord change = detectChange();
     if (change.file == -1 and change.rank == -1){
         Event nullEvent;
@@ -73,9 +116,10 @@ Event Board::pollEvent(const Event& prev, Player turn){
     
     Event ret(turn, action, pieceType, pieceColor, file, rank);
     return ret;
+#endif
 }
 
-void Board::updateBoard(const Event& event){
+void Board::update(const Event& event){
     if (event.isNullEvent == true || event.action == noAction)
         return;
 
