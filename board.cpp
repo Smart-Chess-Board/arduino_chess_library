@@ -40,3 +40,71 @@ void Board::printSerial(){
 void Board::printLED(){
 
 }
+
+/*
+Note that the pollEvent function will not be called if the current state is PROMO1 or PROMO3
+In PROMO1, need to wait for arduino to read a promotion type from the user
+In PROMO3, need to generate the state differently, since the piece being placed
+differs from the original piece that was lifted.
+*/
+Event Board::pollEvent(const Event& prev, Player turn){
+    Coord change = detectChange();
+    if (change.file == -1 and change.rank == -1){
+        Event nullEvent;
+        return nullEvent;
+    }
+
+    Action action;
+    PieceType pieceType;
+    Player pieceColor;
+    int file = change.file;
+    int rank = change.rank;
+
+    if (scannedBoard[file][rank] == true){ // place event
+        action = place;
+        pieceType = prev.piece.type;
+        pieceColor = prev.piece.color;
+    }
+    else{ // lift event
+        action = lift;
+        pieceType = board[file][rank].piece.type;
+        pieceColor = board[file][rank].piece.color;
+    }
+    
+    Event ret(turn, action, pieceType, pieceColor, file, rank);
+    return ret;
+}
+
+void Board::updateBoard(const Event& event){
+    if (event.isNullEvent == true || event.action == noAction)
+        return;
+
+    int file = event.file;
+    int rank = event.rank;
+    if (event.action == lift){
+        board[file][rank].hasPiece = false;
+        board[file][rank].piece.type = empty;
+        board[file][rank].piece.color = none;
+    }
+    else if (event.action == place){
+        board[file][rank].hasPiece = true;
+        board[file][rank].piece = event.piece;
+    }
+}
+
+void Board::scanBoard(){ // implement once hardware is ready
+
+}
+
+Coord Board::detectChange(){
+    for (int file = 1; file <= 8; file++){
+        for (int rank = 1; rank <=8; rank++){
+            if (scannedBoard[file][rank] == true && board[file][rank].hasPiece == false) // piece placed
+                return {file, rank};
+            else if (scannedBoard[file][rank] == false && board[file][rank].hasPiece == true) // piece removed
+                return {file, rank};
+        }
+    }
+    // no changes
+    return {-1, -1}; // invalid Coord to indicate no change
+}

@@ -11,7 +11,7 @@ Event::Event()
 
 // constructor for promotion
 Event::Event(PieceType promo, int f, int r)
-: promotion(promo), file(f), rank(r), isPieceAlly(true), isNullEvent(false){}
+: promotion(promo), action(noAction), file(f), rank(r), isPieceAlly(true), isNullEvent(false){}
 
 // constructor for other events
 Event::Event(Player player, Action action, PieceType type, Player color, int f, int r)
