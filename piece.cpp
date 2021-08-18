@@ -8,3 +8,11 @@ Piece::Piece(PieceType type, Player color)
 
 Piece::Piece(Player color, PieceType type)
 : type(type), color(color) {}
+
+bool Piece::operator==(const Piece& piece){
+    return (type == piece.type && color == piece.color);
+}
+
+bool Piece::operator!=(const Piece& piece){
+    return (type != piece.type || color != piece.color);
+}
