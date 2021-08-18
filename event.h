@@ -7,6 +7,8 @@
 
 class Event{
 public:
+    Event();
+    Event(PieceType promo, int f, int r);
     Event(Player player, Action action, PieceType type, Player color, int f, int r);
     void printSerial();
 
@@ -19,6 +21,10 @@ public:
     // coordinates of the event
     int file;
     int rank;
+
+    // members for fsm
+    bool isNullEvent;
+    PieceType promotion = empty;
 };
 
 #endif
