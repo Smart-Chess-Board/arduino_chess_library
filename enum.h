@@ -28,6 +28,6 @@ enum File{
     H = 8
 };
 
-enum Action{lift, place};
+enum Action{lift, place, noAction};
 
 #endif

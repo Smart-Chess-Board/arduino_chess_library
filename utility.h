@@ -15,5 +15,4 @@ String getCoordLower(int file, int rank);
 String pieceName(PieceType type);
 String pieceName(const Piece& piece);
 
-
 #endif
