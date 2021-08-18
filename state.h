@@ -21,25 +21,25 @@ enum State{
 };
 
 // main state function
-State nextState(State state, Event* curr, Event* prev);
+State nextState(State state, const Event& curr, const Event& prev);
 
 // individual state functions
-State _nextStateFromGreen(Event* curr, Event* prev);
-State _nextStateFromMove(Event* curr, Event* prev);
-State _nextStateFromCapture1(Event* curr, Event* prev);
-State _nextStateFromCapture2(Event* curr, Event* prev);
-State _nextStateFromKing(Event* curr, Event* prev);
-State _nextStateFromCastle1(Event* curr, Event* prev);
-State _nextStateFromCastle2(Event* curr, Event* prev);
-State _nextStateFromPromo1(Event* curr, Event* prev);
-State _nextStateFromPromo2(Event* curr, Event* prev);
-State _nextStateFromPromo3(Event* curr, Event* prev);
-State _nextStateFromRed1(Event* curr, Event* prev);
-State _nextStateFromRed2(Event* curr, Event* prev);
+State _nextStateFromGreen(const Event& curr, const Event& prev);
+State _nextStateFromMove(const Event& curr, const Event& prev);
+State _nextStateFromCapture1(const Event& curr, const Event& prev);
+State _nextStateFromCapture2(const Event& curr, const Event& prev);
+State _nextStateFromKing(const Event& curr, const Event& prev);
+State _nextStateFromCastle1(const Event& curr, const Event& prev);
+State _nextStateFromCastle2(const Event& curr, const Event& prev);
+State _nextStateFromPromo1(const Event& curr, const Event& prev);
+State _nextStateFromPromo2(const Event& curr, const Event& prev);
+State _nextStateFromPromo3(const Event& curr, const Event& prev);
+State _nextStateFromRed1(const Event& curr, const Event& prev);
+State _nextStateFromRed2(const Event& curr, const Event& prev);
 
 // helper functions
-bool _noChange(Event* curr);
-bool _pieceReplaced(Event* curr, Event* prev);
-bool _isPromotion(Event* curr);
+bool _noChange(const Event& curr);
+bool _pieceReplaced(const Event& curr, const Event& prev);
+bool _isPromotion(const Event& curr);
 
 #endif
