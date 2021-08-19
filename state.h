@@ -15,8 +15,7 @@ enum State{
     PROMO1,     // promotions
     PROMO2,
     PROMO3,
-    RED1,        // end state
-    RED2,
+    RED,        // end state
     NONE,       // empty state used for reset
 };
 
@@ -34,8 +33,7 @@ State _nextStateFromCastle2(const Event& curr, const Event& prev);
 State _nextStateFromPromo1(const Event& curr, const Event& prev);
 State _nextStateFromPromo2(const Event& curr, const Event& prev);
 State _nextStateFromPromo3(const Event& curr, const Event& prev);
-State _nextStateFromRed1(const Event& curr, const Event& prev);
-State _nextStateFromRed2(const Event& curr, const Event& prev);
+State _nextStateFromRed(const Event& curr, const Event& prev);
 
 // helper functions
 bool _noChange(const Event& curr);

@@ -51,3 +51,22 @@ String readStringFromSerial(){
     while (Serial.available() == 0);
     return Serial.readString();
 }
+
+// states
+String stateName(State state){
+    switch(state){
+        case GREEN:     return "GREEN";
+        case MOVE:      return "MOVE";
+        case CAPTURE1:  return "CAPTURE1";
+        case CAPTURE2:  return "CAPTURE2";
+        case KING:      return "KING";
+        case CASTLE1:   return "CASTLE1";
+        case CASTLE2:   return "CASTLE2";
+        case PROMO1:    return "PROMO1";
+        case PROMO2:    return "PROMO2";
+        case PROMO3:    return "PROMO3";
+        case RED:       return "RED";
+        case NONE:      return "NONE";
+        default:        return "NONE";
+    }
+}

@@ -4,6 +4,7 @@
 #include "enum.h"
 #include "Arduino.h"
 #include "piece.h"
+#include "state.h"
 
 // coordinate conversions
 char intToFileUpper(int file);
@@ -18,5 +19,8 @@ String pieceName(const Piece& piece);
 
 // arduino
 String readStringFromSerial();
+
+// states
+String stateName(State state);
 
 #endif

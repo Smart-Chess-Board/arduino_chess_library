@@ -27,6 +27,9 @@ void Event::printSerial(){
     if (isNullEvent){
         Serial.println("null event");
     }
+    else if (action == noAction){
+        Serial.println("promotion event");
+    }
     else{
         if (player == white)    Serial.print("White's move: ");
         else                    Serial.print("Black's move: ");
@@ -35,7 +38,7 @@ void Event::printSerial(){
         else                    Serial.print("place ");
 
         if (isPieceAlly)        Serial.print("ally ");
-        else                    Serial.println("enemy ");
+        else                    Serial.print("enemy ");
 
         Serial.print(pieceName(piece.type));
         Serial.print(" ");

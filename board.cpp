@@ -30,6 +30,8 @@ Board::Board(){
 
 void Board::printSerial(){
     for (int rank = 8; rank >= 1; rank--){
+        Serial.print(rank);
+        Serial.print(" | ");
         for (int file = 1; file <= 8; file++){
             char c = board[file][rank].piece.type;
             if (board[file][rank].piece.color == black){
@@ -43,6 +45,17 @@ void Board::printSerial(){
         }
         Serial.println();
     }
+
+    Serial.print("    ");
+    for (char file = 'A'; file <= 'H'; file++){
+        Serial.print("--");
+    }
+    Serial.print("\n    ");
+    for (char file = 'A'; file <= 'H'; file++){
+        Serial.print(file);
+        Serial.print(" ");
+    }
+    Serial.println();
 }
 
 void Board::printLED(){
@@ -67,6 +80,23 @@ Event Board::pollEvent(const Event& prev, Player turn){
         return nullEvent;
     }
 
+    if (input == "queen"){
+        Event ret(queen, prev.file, prev.rank);
+        return ret;
+    }
+    else if (input == "rook"){
+        Event ret(rook, prev.file, prev.rank);
+        return ret;
+    }
+    else if (input == "knight"){
+        Event ret(knight, prev.file, prev.rank);
+        return ret;
+    }
+    else if (input == "bishop"){
+        Event ret(bishop, prev.file, prev.rank);
+        return ret;
+    }
+
     Action action;
     PieceType pieceType;
     Player pieceColor;
@@ -76,12 +106,12 @@ Event Board::pollEvent(const Event& prev, Player turn){
     file = fileToInt(input[1]);
     String r = String(input[2]);
     rank = r.toInt();
-    if (input[0] == 'L'){
+    if (input[0] == 'L' || input[0] == 'l'){
         action = lift;
         pieceType = board[file][rank].piece.type;
         pieceColor = board[file][rank].piece.color;
     }
-    else if (input[0] == 'P'){
+    else if (input[0] == 'P' || input[0] == 'p'){
         action = place;
         pieceType = prev.piece.type;
         pieceColor = prev.piece.color;

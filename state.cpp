@@ -13,8 +13,7 @@ State nextState(State state, const Event& curr, const Event& prev){
         case PROMO1:    return _nextStateFromPromo1(curr, prev);
         case PROMO2:    return _nextStateFromPromo2(curr, prev);
         case PROMO3:    return _nextStateFromPromo3(curr, prev);
-        case RED1:      return _nextStateFromRed1(curr, prev);
-        case RED2:      return _nextStateFromRed2(curr, prev);
+        case RED:       return _nextStateFromRed(curr, prev);
         case NONE:      return NONE;
         default:        return NONE;
     }
@@ -33,7 +32,7 @@ State _nextStateFromMove(const Event& curr, const Event& prev){
     if (_noChange(curr)) return MOVE;
     else if (_pieceReplaced(curr, prev)) return GREEN;
     else if (_isPromotion(curr)) return PROMO1;
-    else if (curr.action == place && curr.isPieceAlly == true) return RED1;
+    else if (curr.action == place && curr.isPieceAlly == true) return RED;
     else return MOVE;
 }
 
@@ -48,7 +47,7 @@ State _nextStateFromCapture2(const Event& curr, const Event& prev){
     if (_noChange(curr)) return CAPTURE2;
     else if (_pieceReplaced(curr, prev)) return CAPTURE1;
     else if (_isPromotion(curr)) return PROMO1;
-    else if (curr.action == place && curr.isPieceAlly == true) return RED1;
+    else if (curr.action == place && curr.isPieceAlly == true) return RED;
     else return CAPTURE2;
 }
 
@@ -57,7 +56,7 @@ State _nextStateFromKing(const Event& curr, const Event& prev){
     else if (_pieceReplaced(curr, prev)) return GREEN;
     else if (curr.action == place && curr.isPieceAlly == true && curr.piece.type == king){
         if (abs(curr.file - prev.file) == 2) return CASTLE1;
-        else return RED1;
+        else return RED;
     }
     else return KING;
 }
@@ -71,7 +70,7 @@ State _nextStateFromCastle1(const Event& curr, const Event& prev){
 State _nextStateFromCastle2(const Event& curr, const Event& prev){
     if (_noChange(curr)) return CASTLE2;
     else if (_pieceReplaced(curr, prev)) return CASTLE1;
-    else if (curr.action == place && curr.isPieceAlly == true && curr.piece.type == rook) return RED1;
+    else if (curr.action == place && curr.isPieceAlly == true && curr.piece.type == rook) return RED;
     else return CASTLE2;
 }
 
@@ -90,20 +89,12 @@ State _nextStateFromPromo2(const Event& curr, const Event& prev){
 }
 State _nextStateFromPromo3(const Event& curr, const Event& prev){
     if (_noChange(curr)) return PROMO3;
-    else if (curr.action == place && curr.file == prev.file && curr.rank == prev.rank) return RED1;
+    else if (curr.action == place && curr.file == prev.file && curr.rank == prev.rank) return RED;
     else return PROMO3;
 }
 
-State _nextStateFromRed1(const Event& curr, const Event& prev){
-    if (_noChange(curr)) return RED1;
-    else if (curr.player != prev.player) return RED2;
-    else return RED1;
-}
-
-State _nextStateFromRed2(const Event& curr, const Event& prev){
-    if (_noChange(curr)) return RED2;
-    else if (curr.player != prev.player) return GREEN;
-    else return RED2;
+State _nextStateFromRed(const Event& curr, const Event& prev){
+    return RED;
 }
 
 // helper functions
