@@ -4,19 +4,20 @@
 #include "Arduino.h"
 #include "event.h"
 
+// ordered topologically (roughly)
 enum State{
-    GREEN,      // start state of move
-    MOVE,       // move piece
-    CAPTURE1,   // capture piece
-    CAPTURE2,
-    KING,  // move king
-    CASTLE1,    // castle
-    CASTLE2,
-    PROMO1,     // promotions
-    PROMO2,
-    PROMO3,
-    RED,        // end state
-    NONE,       // empty state used for reset
+    GREEN = 0,      // start state of move
+    MOVE = 1,       // move piece
+    KING = 2,  // move king
+    CAPTURE1 = 3,   // capture piece
+    CAPTURE2 = 4,
+    CASTLE1 = 5,    // castle
+    CASTLE2 = 6,
+    PROMO1 = 7,     // promotions
+    PROMO2 = 8,
+    PROMO3 = 9,
+    RED = 10,        // end state
+    NONE = 11,       // empty state used for reset
 };
 
 // main state function
