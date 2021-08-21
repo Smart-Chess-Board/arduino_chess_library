@@ -19,6 +19,18 @@ State nextState(State state, const Event& curr, const Event& prev){
     }
 }
 
+// called at end of arduino loop to update prev event
+void updatePrevEvent(const Event& curr, Event& prev, State state, bool stateChange){
+    if (curr.isNullEvent == true || stateChange == false){
+        return;
+    }
+    if (state == CAPTURE2 && curr.action == lift && curr.isPieceAlly == false){
+        return;
+    }
+
+    prev = curr; // update event;
+}
+
 // helper state function
 State _nextStateFromGreen(const Event& curr, const Event& prev){
     if (_noChange(curr)) return GREEN;
@@ -31,6 +43,7 @@ State _nextStateFromGreen(const Event& curr, const Event& prev){
 State _nextStateFromMove(const Event& curr, const Event& prev){
     if (_noChange(curr)) return MOVE;
     else if (_pieceReplaced(curr, prev)) return GREEN;
+    else if (curr.action == lift && curr.isPieceAlly == false) return CAPTURE2;  // TODO: edge case with prev evet here
     else if (_isPromotion(curr)) return PROMO1;
     else if (curr.action == place && curr.isPieceAlly == true) return RED;
     else return MOVE;

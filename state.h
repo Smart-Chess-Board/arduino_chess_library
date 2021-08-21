@@ -21,6 +21,7 @@ enum State{
 
 // main state function
 State nextState(State state, const Event& curr, const Event& prev);
+void updatePrevEvent(const Event& curr, Event& prev, State state, bool stateChange); // called at end of arduino loop to update prev event
 
 // individual state functions
 State _nextStateFromGreen(const Event& curr, const Event& prev);

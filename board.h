@@ -15,7 +15,7 @@ struct Coord{
 class Board{
 public:
     Board();
-    Event pollEvent(const Event& prev, Player turn);
+    Event pollEvent(State state, const Event& prev, Player turn);
     void update(const Event& event);
     void scanBoard();
     Coord detectChange();

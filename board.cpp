@@ -69,7 +69,7 @@ In PROMO3, need to generate the state differently, since the piece being placed
 differs from the original piece that was lifted.
 */
 
-Event Board::pollEvent(const Event& prev, Player turn){
+Event Board::pollEvent(State state, const Event& prev, Player turn){
 #ifdef SW_TESTING
     // format action, coord
     // null event is just null
@@ -79,73 +79,84 @@ Event Board::pollEvent(const Event& prev, Player turn){
         Event nullEvent;
         return nullEvent;
     }
-
-    if (input == "queen"){
+    if (state == PROMO1){
+        if (input == "queen"){
         Event ret(queen, prev.file, prev.rank);
         return ret;
+        }
+        else if (input == "rook"){
+            Event ret(rook, prev.file, prev.rank);
+            return ret;
+        }
+        else if (input == "knight"){
+            Event ret(knight, prev.file, prev.rank);
+            return ret;
+        }
+        else if (input == "bishop"){
+            Event ret(bishop, prev.file, prev.rank);
+            return ret;
+        }
+        else {
+            Event ret;
+            return ret;
+        }
     }
-    else if (input == "rook"){
-        Event ret(rook, prev.file, prev.rank);
+    else{
+        Action action;
+        PieceType pieceType;
+        Player pieceColor;
+        int file, rank;
+
+        // parse input
+        file = fileToInt(input[1]);
+        String r = String(input[2]);
+        rank = r.toInt();
+        if (input[0] == 'L' || input[0] == 'l'){
+            action = lift;
+            pieceType = board[file][rank].piece.type;
+            pieceColor = board[file][rank].piece.color;
+        }
+        else if (input[0] == 'P' || input[0] == 'p'){
+            action = place;
+            pieceType = prev.piece.type;
+            pieceColor = prev.piece.color;
+        }
+
+        Event ret(turn, action, pieceType, pieceColor, file, rank);
         return ret;
     }
-    else if (input == "knight"){
-        Event ret(knight, prev.file, prev.rank);
+
+#else // FIXME: need to incorporate state into to generate promo events
+    if (state == PROMO1){
+        // check for select switches
+    }
+    else{
+        Coord change = detectChange();
+        if (change.file == -1 and change.rank == -1){
+            Event nullEvent;
+            return nullEvent;
+        }
+
+        Action action;
+        PieceType pieceType;
+        Player pieceColor;
+        int file = change.file;
+        int rank = change.rank;
+
+        if (scannedBoard[file][rank] == true){ // place event
+            action = place;
+            pieceType = prev.piece.type;
+            pieceColor = prev.piece.color;
+        }
+        else{ // lift event
+            action = lift;
+            pieceType = board[file][rank].piece.type;
+            pieceColor = board[file][rank].piece.color;
+        }
+        
+        Event ret(turn, action, pieceType, pieceColor, file, rank);
         return ret;
     }
-    else if (input == "bishop"){
-        Event ret(bishop, prev.file, prev.rank);
-        return ret;
-    }
-
-    Action action;
-    PieceType pieceType;
-    Player pieceColor;
-    int file, rank;
-
-    // parse input
-    file = fileToInt(input[1]);
-    String r = String(input[2]);
-    rank = r.toInt();
-    if (input[0] == 'L' || input[0] == 'l'){
-        action = lift;
-        pieceType = board[file][rank].piece.type;
-        pieceColor = board[file][rank].piece.color;
-    }
-    else if (input[0] == 'P' || input[0] == 'p'){
-        action = place;
-        pieceType = prev.piece.type;
-        pieceColor = prev.piece.color;
-    }
-
-    Event ret(turn, action, pieceType, pieceColor, file, rank);
-    return ret;
-
-#else
-    Coord change = detectChange();
-    if (change.file == -1 and change.rank == -1){
-        Event nullEvent;
-        return nullEvent;
-    }
-
-    Action action;
-    PieceType pieceType;
-    Player pieceColor;
-    int file = change.file;
-    int rank = change.rank;
-
-    if (scannedBoard[file][rank] == true){ // place event
-        action = place;
-        pieceType = prev.piece.type;
-        pieceColor = prev.piece.color;
-    }
-    else{ // lift event
-        action = lift;
-        pieceType = board[file][rank].piece.type;
-        pieceColor = board[file][rank].piece.color;
-    }
-    
-    Event ret(turn, action, pieceType, pieceColor, file, rank);
-    return ret;
 #endif
 }
 
