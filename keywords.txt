@@ -18,8 +18,8 @@
 Piece	KEYWORD1
 
 # member functions
-operator==  KEYWORD2
-operator!=  KEYWORD2
+operator==	KEYWORD2
+operator!=	KEYWORD2
 
 
 ####################################################
@@ -42,11 +42,10 @@ Board	KEYWORD1
 # member functions
 printSerial	KEYWORD2
 printLED	KEYWORD2
-update  KEYWORD2
-scanBoard KEYWORD2
-pollBoard   KEYWORD2
-detectChange    KEYWORD2
-
+update	KEYWORD2
+scanBoard	KEYWORD2
+pollBoard	KEYWORD2
+detectChange	KEYWORD2
 
 
 ####################################################
@@ -58,3 +57,17 @@ Event	KEYWORD1
 
 # member functions
 printSerial	KEYWORD2
+
+
+####################################################
+#                      move.h                      #
+####################################################
+
+# class name
+Move	KEYWORD1
+
+# member functions
+updateMove	KEYWORD2
+resetMove	KEYWORD2
+getLongAlgebraicNotation	KEYWORD2
+getUCINotation	KEYWORD2
