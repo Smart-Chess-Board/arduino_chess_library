@@ -8,8 +8,8 @@
 #include "utility.h"
 
 struct Coord{
-    int file;
-    int rank;
+    uint8_t file;
+    uint8_t rank;
 };
 
 class Board{

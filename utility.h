@@ -7,11 +7,11 @@
 #include "state.h"
 
 // coordinate conversions
-char intToFileUpper(int file);
-char intToFileLower(int file);
-String getCoordUpper(int file, int rank);
-String getCoordLower(int file, int rank);
-int fileToInt(char file);
+char intToFileUpper(uint8_t file);
+char intToFileLower(uint8_t file);
+String getCoordUpper(uint8_t file, uint8_t rank);
+String getCoordLower(uint8_t file, uint8_t rank);
+uint8_t fileToInt(char file);
 
 // pieces
 String pieceName(PieceType type);

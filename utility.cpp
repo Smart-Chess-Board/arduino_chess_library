@@ -1,23 +1,23 @@
 #include "utility.h"
 
 // coordinate conversions
-char intToFileUpper(int file){
+char intToFileUpper(uint8_t file){
     return 'A'-1 + file;
 }
 
-char intToFileLower(int file){
+char intToFileLower(uint8_t file){
     return 'a'-1 + file;
 }
 
-String getCoordUpper(int file, int rank){
+String getCoordUpper(uint8_t file, uint8_t rank){
     return intToFileUpper(file) + String(rank);
 }
 
-String getCoordLower(int file, int rank){
+String getCoordLower(uint8_t file, uint8_t rank){
     return intToFileLower(file) + String(rank);
 }
 
-int fileToInt(char file){
+uint8_t fileToInt(char file){
     if ('A' <= file && file <= 'H')
         return file-'A'+1;
     else if ('a' <= file && file <= 'h')

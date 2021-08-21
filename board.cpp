@@ -3,12 +3,12 @@
 #define SW_TESTING
 
 Board::Board(){
-    for (int file = 1; file <= 8; file++){
+    for (uint8_t file = 1; file <= 8; file++){
         // set piece colors
-        for (int rank = 1; rank <= 2; rank++){
+        for (uint8_t rank = 1; rank <= 2; rank++){
             board[file][rank].piece.color = white;
         }
-        for (int rank = 7; rank <= 8; rank++){
+        for (uint8_t rank = 7; rank <= 8; rank++){
             board[file][rank].piece.color = black;
         }
         // set pawns
@@ -16,7 +16,7 @@ Board::Board(){
         board[file][7].piece.type = pawn;
     }
     // set pieces
-    for (int rank = 1; rank <= 8; rank += 7){
+    for (uint8_t rank = 1; rank <= 8; rank += 7){
         board[A][rank].piece.type = rook;
         board[B][rank].piece.type = knight;
         board[C][rank].piece.type = bishop;
@@ -29,10 +29,10 @@ Board::Board(){
 }
 
 void Board::printSerial(){
-    for (int rank = 8; rank >= 1; rank--){
+    for (uint8_t rank = 8; rank >= 1; rank--){
         Serial.print(rank);
         Serial.print(" | ");
-        for (int file = 1; file <= 8; file++){
+        for (uint8_t file = 1; file <= 8; file++){
             char c = board[file][rank].piece.type;
             if (board[file][rank].piece.color == black){
                 c += 32;
@@ -105,7 +105,7 @@ Event Board::pollEvent(State state, const Event& prev, Player turn){
         Action action;
         PieceType pieceType;
         Player pieceColor;
-        int file, rank;
+        uint8_t file, rank;
 
         // parse input
         file = fileToInt(input[1]);
@@ -140,8 +140,8 @@ Event Board::pollEvent(State state, const Event& prev, Player turn){
         Action action;
         PieceType pieceType;
         Player pieceColor;
-        int file = change.file;
-        int rank = change.rank;
+        uint8_t file = change.file;
+        uint8_t rank = change.rank;
 
         if (scannedBoard[file][rank] == true){ // place event
             action = place;
@@ -164,8 +164,8 @@ void Board::update(const Event& event){
     if (event.isNullEvent == true || event.action == noAction)
         return;
 
-    int file = event.file;
-    int rank = event.rank;
+    uint8_t file = event.file;
+    uint8_t rank = event.rank;
     if (event.action == lift){
         board[file][rank].hasPiece = false;
         board[file][rank].piece.type = empty;
@@ -182,8 +182,8 @@ void Board::scanBoard(){ // implement once hardware is ready
 }
 
 Coord Board::detectChange(){
-    for (int file = 1; file <= 8; file++){
-        for (int rank = 1; rank <=8; rank++){
+    for (uint8_t file = 1; file <= 8; file++){
+        for (uint8_t rank = 1; rank <=8; rank++){
             if (scannedBoard[file][rank] == true && board[file][rank].hasPiece == false) // piece placed
                 return {file, rank};
             else if (scannedBoard[file][rank] == false && board[file][rank].hasPiece == true) // piece removed
