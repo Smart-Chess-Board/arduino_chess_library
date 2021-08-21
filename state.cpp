@@ -67,6 +67,7 @@ State _nextStateFromCapture2(const Event& curr, const Event& prev){
 State _nextStateFromKing(const Event& curr, const Event& prev){
     if (_noChange(curr)) return KING;
     else if (_pieceReplaced(curr, prev)) return GREEN;
+    else if (curr.action == lift && curr.isPieceAlly == false) return CAPTURE2;
     else if (curr.action == place && curr.isPieceAlly == true && curr.piece.type == king){
         if (abs(curr.file - prev.file) == 2) return CASTLE1;
         else return RED;
