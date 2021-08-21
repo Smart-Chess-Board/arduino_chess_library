@@ -18,6 +18,8 @@
 Piece	KEYWORD1
 
 # member functions
+operator==  KEYWORD2
+operator!=  KEYWORD2
 
 
 ####################################################
@@ -40,6 +42,11 @@ Board	KEYWORD1
 # member functions
 printSerial	KEYWORD2
 printLED	KEYWORD2
+update  KEYWORD2
+scanBoard KEYWORD2
+pollBoard   KEYWORD2
+detectChange    KEYWORD2
+
 
 
 ####################################################
