@@ -8,8 +8,8 @@
 class Event{
 public:
     Event();
-    Event(PieceType promo, int f, int r);
-    Event(Player player, Action action, PieceType type, Player color, int f, int r);
+    Event(PieceType promo, uint8_t f, uint8_t r);
+    Event(Player player, Action action, PieceType type, Player color, uint8_t f, uint8_t r);
     void printSerial();
 
     // members that describe the event
@@ -19,8 +19,8 @@ public:
     bool isPieceAlly;
 
     // coordinates of the event
-    int file;
-    int rank;
+    uint8_t file;
+    uint8_t rank;
 
     // members for fsm
     bool isNullEvent;

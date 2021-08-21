@@ -126,7 +126,7 @@ bool _pieceReplaced(const Event& curr, const Event& prev){
 
 bool _isPromotion(const Event& curr){
     if (curr.action == place && curr.isPieceAlly == true && curr.piece.type == pawn){
-        int promotionRank;
+        uint8_t promotionRank;
         if (curr.player == white) promotionRank = 8;
         else promotionRank = 1;
         
