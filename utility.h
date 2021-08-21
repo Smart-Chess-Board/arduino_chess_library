@@ -5,8 +5,16 @@
 #include "Arduino.h"
 #include "piece.h"
 #include "state.h"
+#include "square.h"
 
-// coordinate conversions
+// coordinates
+struct Coord{
+    uint8_t file;
+    uint8_t rank;
+};
+
+bool operator==(const Coord& lhs, const Coord& rhs);
+
 char intToFileUpper(uint8_t file);
 char intToFileLower(uint8_t file);
 String getCoordUpper(uint8_t file, uint8_t rank);

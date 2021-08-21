@@ -1,6 +1,10 @@
 #include "utility.h"
 
-// coordinate conversions
+// coordinates
+bool operator==(const Coord& lhs, const Coord& rhs){
+    return (lhs.file == rhs.file && lhs.rank == rhs.rank);
+}
+
 char intToFileUpper(uint8_t file){
     return 'A'-1 + file;
 }

@@ -7,11 +7,6 @@
 #include "event.h"
 #include "utility.h"
 
-struct Coord{
-    uint8_t file;
-    uint8_t rank;
-};
-
 class Board{
 public:
     Board();
