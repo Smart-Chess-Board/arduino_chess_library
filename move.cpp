@@ -2,7 +2,7 @@
 
 Move::Move(){}
 
-void Move::update(Square** currBoard, Square** prevBoard, Player turn, bool isCastle){
+void Move::update(Square currBoard[9][9], Square prevBoard[9][9], Player turn, bool isCastle){
     if (isCastle == true){
         if (turn == white){
             liftFile = E; liftRank = 1;
@@ -31,18 +31,18 @@ void Move::update(Square** currBoard, Square** prevBoard, Player turn, bool isCa
         // scan for lift event and place event
         bool foundLift = false;
         bool foundPlace = false;
-        for (uint8_t file = 1; file <= 8 && !foundLift && !foundPlace; file++){
-            for (uint8_t rank = 1; rank <= 8  && !foundLift && !foundPlace; rank++){
+        for (uint8_t file = 1; file <= 8 && !(foundLift && foundPlace); file++){
+            for (uint8_t rank = 1; rank <= 8  && !(foundLift && foundPlace); rank++){
                 // check for lift event
-                if (prevBoard[file][rank].hasPiece && prevBoard[file][rank].piece.color == turn && !currBoard[file][rank].hasPiece){
+                if (prevBoard[file][rank].hasPiece() && prevBoard[file][rank].piece.color == turn && !currBoard[file][rank].hasPiece()){
                     movedPiece = prevBoard[file][rank].piece.type;
                     liftFile = file;
                     liftRank = rank;
                     foundLift = true;
                 }
                 // check for place event
-                if (currBoard[file][rank].hasPiece && currBoard[file][rank].piece.color == turn){
-                    if (!prevBoard[file][rank].hasPiece){
+                if (currBoard[file][rank].hasPiece() && currBoard[file][rank].piece.color == turn){
+                    if (!prevBoard[file][rank].hasPiece()){
                         placeFile = file;
                         placeRank = rank;
                         foundPlace = true;

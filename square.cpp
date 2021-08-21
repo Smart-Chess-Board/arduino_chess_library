@@ -1,8 +1,6 @@
 #include "square.h"
 
-Square::Square()
-: hasPiece(false) {
-
+Square::Square(){
     piece.type = empty;
     piece.color = none;
 }
@@ -10,14 +8,15 @@ Square::Square()
 Square::Square(PieceType type, Player color){
     piece.type = type;
     piece.color = color;
-    hasPiece = (piece.type != empty);
 
 }
 
 Square::Square(const Piece& p){
     piece.type = p.type;
     piece.color = p.color;
-    hasPiece = (piece.type != empty);
 }
 
+bool Square::hasPiece(){
+    return piece.type != empty;
+}
 

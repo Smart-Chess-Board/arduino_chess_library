@@ -74,3 +74,23 @@ String stateName(State state){
         default:        return "NONE";
     }
 }
+
+// data movement
+void copyBoard(Square src[9][9], Square dst[9][9]){
+    for (uint8_t file = 1; file <= 8; file++){
+        for (uint8_t rank = 1; rank <= 8; rank++){
+            dst[file][rank] = src[file][rank];
+        }
+    }
+}
+
+void printBoard(Square board[9][9]){
+    for (uint8_t rank = 8; rank >=1; rank--){
+        for (uint8_t file = 1; file <= 8; file++){
+            char c = board[file][rank].piece.type;
+            Serial.print(c);
+            Serial.print(" ");
+        }
+        Serial.println();
+    }
+}

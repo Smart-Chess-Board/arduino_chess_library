@@ -8,7 +8,7 @@
 class Move {
 public:
     Move();
-    void update(Square** currBoard, Square** prevBoard, Player turn, bool isCastle);
+    void update(Square currBoard[9][9], Square prevBoard[9][9], Player turn, bool isCastle);
     void reset();
     String getLongAlgebraicNotation();
     String getUCINotation();

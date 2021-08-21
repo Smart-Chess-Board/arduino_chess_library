@@ -9,8 +9,8 @@ public:
     Square();
     Square(PieceType type, Player color);
     Square(const Piece& p);
+    bool hasPiece();
 
-    bool hasPiece;
     Piece piece;
 };
 

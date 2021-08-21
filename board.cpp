@@ -167,12 +167,10 @@ void Board::update(const Event& event){
     uint8_t file = event.file;
     uint8_t rank = event.rank;
     if (event.action == lift){
-        board[file][rank].hasPiece = false;
         board[file][rank].piece.type = empty;
         board[file][rank].piece.color = none;
     }
     else if (event.action == place){
-        board[file][rank].hasPiece = true;
         board[file][rank].piece = event.piece;
     }
 }
@@ -184,9 +182,9 @@ void Board::scanBoard(){ // implement once hardware is ready
 Coord Board::detectChange(){
     for (uint8_t file = 1; file <= 8; file++){
         for (uint8_t rank = 1; rank <=8; rank++){
-            if (scannedBoard[file][rank] == true && board[file][rank].hasPiece == false) // piece placed
+            if (scannedBoard[file][rank] == true && board[file][rank].hasPiece() == false) // piece placed
                 return {file, rank};
-            else if (scannedBoard[file][rank] == false && board[file][rank].hasPiece == true) // piece removed
+            else if (scannedBoard[file][rank] == false && board[file][rank].hasPiece() == true) // piece removed
                 return {file, rank};
         }
     }

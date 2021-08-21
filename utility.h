@@ -31,4 +31,8 @@ String readStringFromSerial();
 // states
 String stateName(State state);
 
+// data movement
+void copyBoard(Square src[9][9], Square dst[9][9]);
+void printBoard(Square board[9][9]);
+
 #endif

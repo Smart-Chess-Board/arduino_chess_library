@@ -30,7 +30,7 @@ operator!=	KEYWORD2
 Square	KEYWORD1
 
 # member functions
-
+hasPiece	KEYWORD2
 
 ####################################################
 #                    Board.h                       #
@@ -67,7 +67,7 @@ printSerial	KEYWORD2
 Move	KEYWORD1
 
 # member functions
-updateMove	KEYWORD2
-resetMove	KEYWORD2
+update	KEYWORD2
+reset	KEYWORD2
 getLongAlgebraicNotation	KEYWORD2
 getUCINotation	KEYWORD2
