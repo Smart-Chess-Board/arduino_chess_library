@@ -3,6 +3,7 @@
 #define SW_TESTING
 
 Board::Board(){
+    // initialize board
     for (uint8_t file = 1; file <= 8; file++){
         // set piece colors
         for (uint8_t rank = 1; rank <= 2; rank++){
@@ -25,6 +26,21 @@ Board::Board(){
         board[F][rank].piece.type = bishop;
         board[G][rank].piece.type = knight;
         board[H][rank].piece.type = rook;
+    }
+
+    // initalize scannedBoard
+    uint8_t startRanks[4] = {1, 2, 7, 8};
+    for (uint8_t rank : startRanks){
+        for (int file = 1; file <= 8; file++){
+            scannedBoard[file][rank] = true;
+        }
+    }
+
+    filePins = {0, WA, WB, WC, WD, WE, WF, WG, WH};
+    rankPins = {0, R1, R2, R3, R4, R5, R6, R7, R8};
+    for (int i = 1; i <= 8; i++){
+        pinMode(filePins[i], OUTPUT);
+        pinMode(rankPins[i], INPUT);
     }
 }
 
@@ -129,6 +145,7 @@ Event Board::pollEvent(State state, const Event& prev, Player turn){
 #else // FIXME: need to incorporate state into to generate promo events
     if (state == PROMO1){
         // check for select switches
+        
     }
     else{
         Coord change = detectChange();
@@ -160,6 +177,60 @@ Event Board::pollEvent(State state, const Event& prev, Player turn){
 #endif
 }
 
+Event Board::getEvent(String input, State state, const Event& prev, Player turn){
+    if (input == "null"){
+        Event nullEvent;
+        return nullEvent;
+    }
+    if (state == PROMO1){
+        if (input == "queen"){
+        Event ret(queen, prev.file, prev.rank);
+        return ret;
+        }
+        else if (input == "rook"){
+            Event ret(rook, prev.file, prev.rank);
+            return ret;
+        }
+        else if (input == "knight"){
+            Event ret(knight, prev.file, prev.rank);
+            return ret;
+        }
+        else if (input == "bishop"){
+            Event ret(bishop, prev.file, prev.rank);
+            return ret;
+        }
+        else {
+            Event ret;
+            return ret;
+        }
+    }
+    else{
+        Action action;
+        PieceType pieceType;
+        Player pieceColor;
+        uint8_t file, rank;
+
+        // parse input
+        file = fileToInt(input[1]);
+        String r = String(input[2]);
+        rank = r.toInt();
+        if (input[0] == 'L' || input[0] == 'l'){
+            action = lift;
+            pieceType = board[file][rank].piece.type;
+            pieceColor = board[file][rank].piece.color;
+        }
+        else if (input[0] == 'P' || input[0] == 'p'){
+            action = place;
+            pieceType = prev.piece.type;
+            pieceColor = prev.piece.color;
+        }
+
+        Event ret(turn, action, pieceType, pieceColor, file, rank);
+        return ret;
+    }
+}
+
+
 void Board::update(const Event& event){
     if (event.isNullEvent == true || event.action == noAction)
         return;
@@ -180,6 +251,24 @@ void Board::scanBoard(){ // implement once hardware is ready
 }
 
 Coord Board::detectChange(){
+    // update scannedBoard
+    for (int file = 1; file <= 8; file++){
+        // set all lines low except for file
+        for (int i = 1; file <= 8; i++){
+            digitalWrite(filePin[i], LOW);
+        }
+        digitalWrite(filePin[file], HIGH);
+        
+        for (int rank = 1; rank <= 8; rank++){
+            if (digitalRead(rankPin[rank]) == HIGH){
+                scannedBoard[file][rank] = true;
+            }
+            else{
+                scannedBoard[file][rank] = false;
+            }
+        }
+    }
+
     for (uint8_t file = 1; file <= 8; file++){
         for (uint8_t rank = 1; rank <=8; rank++){
             if (scannedBoard[file][rank] == true && board[file][rank].hasPiece() == false) // piece placed

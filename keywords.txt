@@ -44,7 +44,8 @@ printSerial	KEYWORD2
 printLED	KEYWORD2
 update	KEYWORD2
 scanBoard	KEYWORD2
-pollBoard	KEYWORD2
+pollEvent   KEYWORD2
+getEvent	KEYWORD2
 detectChange	KEYWORD2
 
 
